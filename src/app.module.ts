@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { AccessTokenGaurd } from './common/guards';
 import { RolesGaurd } from './common/guards/roles.gaurd';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { RolesGaurd } from './common/guards/roles.gaurd';
     UserModule,
     PrismaModule,
     ConfigModule.forRoot({ isGlobal: true }),
+    ProductModule,
   ],
   providers: [
     {
