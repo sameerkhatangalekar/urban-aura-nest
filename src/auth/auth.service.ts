@@ -5,6 +5,7 @@ import * as argon from 'argon2';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { JwtService } from '@nestjs/jwt';
 import { Token } from './types';
+import { Role } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -26,7 +27,7 @@ export class AuthService {
 
     if (!isMatched) throw new ForbiddenException('Wrong credentials');
 
-    return await this.generateToken(user.id, user.email);
+    return await this.generateToken(user.id, user.email, user.roles);
   }
 
   async signup(dto: CreateUserDto) {
@@ -50,10 +51,15 @@ export class AuthService {
     }
   }
 
-  private async generateToken(userId: string, email: string): Promise<Token> {
+  private async generateToken(
+    userId: string,
+    email: string,
+    roles: Role[],
+  ): Promise<Token> {
     const token = await this.jwtService.signAsync({
       sub: userId,
       email,
+      roles,
     });
 
     return {

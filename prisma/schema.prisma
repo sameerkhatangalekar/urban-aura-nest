@@ -27,6 +27,8 @@ model User {
   roles Role[] @default([USER])
 
   updatedAt DateTime @updatedAt
+
+  @@map("users")
 }
 
 enum Role {
