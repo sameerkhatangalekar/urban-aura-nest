@@ -36,4 +36,20 @@ enum Role {
   ADMIN
 }
 
-// c4633bc50f9e469bbf3a25e3df775015b4dfda60a48c8b3d9fcfbfcabb1e4cff
+model product {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  name String @unique
+
+  description String
+
+  price BigInt
+
+  colors String[]
+
+  sizes String[]
+
+  images String[]
+
+  @@map("products")
+}

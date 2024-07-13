@@ -9,7 +9,6 @@ import {
 import { AuthService } from './auth.service';
 import { AuthDto, CreateUserDto } from './dto';
 import { GetCurrentUser, Public } from 'src/common/decorators';
-import { Roles } from 'src/common/decorators/roles-decorator';
 
 @Controller('auth')
 export class AuthController {
