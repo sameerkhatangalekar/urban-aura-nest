@@ -1,0 +1,210 @@
+
+[
+  {
+    "name": "Black Leather Rebel Jacket",
+    "description": "Embrace the urban edge with this sleek leather jacket. Crafted from premium faux leather, it features a satin lining for comfort. Perfect for the modern adventurer, this jacket exudes confidence and style. Material: Faux Leather. Care: Dry clean only.",
+    "price": 179.99,
+    "colors": ["Black"],
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "images": [
+      "https://i.postimg.cc/pVzNRB3t/black-leather-jacket1.webp",
+      "https://i.postimg.cc/vTWChQ5m/black-leather-jacket2.webp",
+      "https://i.postimg.cc/DyT9ZXK4/black-leather-jacket3.webp"
+    ],
+    "brand": "Urban Edge"
+  },
+  {
+    "name": "Brick Brown Harmony Top",
+    "description": "Effortlessly chic, this top brings warmth and style together. Made from a breathable cotton blend fabric, it offers both comfort and versatility. Perfect for layering or wearing on its own, this top is a staple for any wardrobe. Material: Cotton blend. Care: Machine wash cold, tumble dry low.",
+    "price": 49.99,
+    "colors": ["Brick Brown"],
+    "sizes": ["S", "M", "L"],
+    "images": [
+  "https://i.postimg.cc/QMwPrBbt/brick-brown-top1.webp",
+"https://i.postimg.cc/L84GkF5H/brick-brown-top2.webp",
+"https://i.postimg.cc/9frSSPyK/brick-brown-top3.webp"
+    ],
+    "brand": "CozyChic"
+  },
+  {
+    "name": "Brown Checkmate Coat",
+    "description": "Step out in sophistication with this checkered coat. Crafted from a luxurious wool blend, it provides both warmth and elegance. Featuring a tailored fit and timeless design, this coat is perfect for formal occasions or everyday wear. Material: Wool blend. Care: Dry clean only.",
+    "price": 229.99,
+    "colors": ["Brown Check"],
+    "sizes": ["XS", "S", "M", "L"],
+    "images": [
+     "https://i.postimg.cc/vZPk32x5/brown-checked-coat1.webp",
+"https://i.postimg.cc/rm4Hy8n9/brown-checked-coat2.webp",
+"https://i.postimg.cc/BbGVXdRf/brown-checked-coat3.webp"
+    ],
+    "brand": "SophistiCoat"
+  },
+  {
+    "name": "Chocolate Dream Coat",
+    "description": "Wrap yourself in luxury with this rich chocolate coat. Crafted from a plush cashmere blend, it offers superior softness and warmth. Designed for comfort and style, this coat is a must-have for the discerning fashionista. Material: Cashmere blend. Care: Dry clean only.",
+    "price": 279.99,
+    "colors": ["Chocolate Brown"],
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+
+"https://i.postimg.cc/zvSPWx1b/brown-coat1.webp",
+"https://i.postimg.cc/RCcYjZnS/brown-coat2.webp"
+
+    ],
+    "brand": "VelvetLux"
+  },
+  {
+    "name": "Cocoa Elegance Sweater",
+    "description": "Indulge in warmth with this cozy cocoa sweater. Knitted from fine merino wool, it offers a luxurious feel and exceptional durability. Perfect for chilly days or evenings, this sweater combines comfort with timeless elegance. Material: Merino wool. Care: Hand wash cold, reshape and dry flat.",
+    "price": 69.99,
+    "colors": ["Cocoa Brown"],
+    "sizes": ["XS", "S", "M", "L"],
+    "images": [
+  "https://i.postimg.cc/ht3Z9JNr/brown-sweater1.webp",
+"https://i.postimg.cc/3w4S98TH/brown-sweater2.webp",
+"https://i.postimg.cc/wT2Gj4Vn/brown-sweater3.webp"
+    ],
+    "brand": "CocoaComfort"
+  },
+  {
+    "name": "Floral Noir Delight Top",
+    "description": "Revel in floral splendor with this noir delight top. Made from lightweight chiffon fabric, it offers an airy and graceful drape. Perfect for both casual outings and special occasions, this top adds a touch of femininity to any outfit. Material: Chiffon. Care: Machine wash cold, gentle cycle.",
+    "price": 39.99,
+    "colors": ["Floral Black"],
+    "sizes": ["S", "M", "L"],
+    "images": [
+
+"https://i.postimg.cc/rFMHc2SS/floral-black-top1.webp",
+"https://i.postimg.cc/BnvwL57b/floral-black-top2.webp"
+
+    ],
+    "brand": "FloralElegance"
+  },
+  {
+    "name": "Purple Bloom Fantasy Top",
+    "description": "Let your style bloom with this purple fantasy top. Crafted from silky satin fabric, it offers a smooth touch and luxurious sheen. Designed to make a statement, this top is ideal for adding a pop of color to any wardrobe. Material: Satin. Care: Hand wash cold, line dry.",
+    "price": 42.99,
+    "colors": ["Floral Purple"],
+    "sizes": ["XS", "S", "M", "L"],
+    "images": [
+    "https://i.postimg.cc/Lscybc9g/floral-purple-top1.webp",
+"https://i.postimg.cc/brT3ddQ1/floral-purple-top2.webp",
+"https://i.postimg.cc/mZNdmp0h/floral-purple-top3.webp"
+    ],
+    "brand": "DreamySatin"
+  },
+  {
+    "name": "Meadow Blossom Top",
+    "description": "Embrace the beauty of nature with this meadow blossom top. Made from eco-friendly bamboo fabric, it offers a soft and sustainable choice. Featuring a delicate floral print, this top brings a touch of freshness to any ensemble. Material: Bamboo. Care: Machine wash cold, gentle cycle.",
+    "price": 45.99,
+    "colors": ["Floral"],
+    "sizes": ["S", "M", "L"],
+    "images": [
+
+"https://i.postimg.cc/j5y80M2g/floral-top1.webp",
+"https://i.postimg.cc/NFYdgRrg/floral-top2.webp",
+"https://i.postimg.cc/zXzx6Sr7/floral-top3.webp"
+
+    ],
+    "brand": "NatureBloom"
+  },
+  {
+    "name": "Emerald Enchantment Gown",
+    "description": "Make a statement in emerald with this enchanting gown. Crafted from shimmering satin fabric, it offers a luxurious feel and elegant silhouette. Perfect for special occasions, this gown ensures you stand out with style. Material: Satin. Care: Dry clean only.",
+    "price": 349.99,
+    "colors": ["Green"],
+    "sizes": ["XS", "S", "M", "L"],
+    "images": [
+
+      "https://i.postimg.cc/4NWWg74g/green-gown1.webp",
+"https://i.postimg.cc/nzK1wMSN/green-gown2.webp",
+"https://i.postimg.cc/vZD3HYD6/green-gown3.webp"
+    ],
+    "brand": "EnchantedEve"
+  },
+  {
+    "name": "Blush Blossom Cardigan",
+    "description": "Wrap yourself in elegance with this blush blossom cardigan. Knitted from soft cashmere, it offers a luxurious touch and exceptional warmth. Perfect for layering, this cardigan adds a touch of sophistication to any outfit. Material: Cashmere. Care: Dry clean only.",
+    "price": 54.99,
+    "colors": ["Pink"],
+    "sizes": ["S", "M", "L"],
+    "images": [
+
+      "https://i.postimg.cc/qvYQNPCD/pink-cardigan1.webp",
+      "https://i.postimg.cc/TPD0gtVd/pink-cardigan2.webp",
+      "https://i.postimg.cc/2jwwQbZZ/pink-cardigan3.webp"
+
+    ],
+    "brand": "BlushBliss"
+  },
+  {
+    "name": "Rose Quartz Satin Gown",
+    "description": "Drape yourself in luxury with this rose quartz satin gown. Crafted from flowing satin fabric, it offers a graceful silhouette and flattering fit. Perfect for formal events, this gown ensures timeless elegance. Material: Satin. Care: Dry clean only.",
+    "price": 389.99,
+    "colors": ["Pink Satin"],
+    "sizes": ["XS", "S", "M", "L"],
+    "images": [
+"https://i.postimg.cc/0Q1ff7np/pink-satin-gown1.webp",
+"https://i.postimg.cc/d3q9Mvz3/pink-satin-gown2.webp"
+
+    ],
+    "brand": "SatinSerene"
+  },
+  {
+    "name": "Snow White Net Top",
+    "description": "Add a touch of sophistication with this snow white net top. Made from delicate lace and mesh, it offers an ethereal and romantic look. Perfect for layering or wearing on its own, this top is a versatile addition to your wardrobe. Material: Lace, Mesh. Care: Hand wash cold, line dry.",
+    "price": 59.99,
+    "colors": ["White"],
+    "sizes": ["XS", "S", "M", "L"],
+    "images": [
+
+      "https://i.postimg.cc/8ctmN9SH/white-net-top1.webp",
+"https://i.postimg.cc/qMvGjJsZ/white-net-top2.webp",
+"https://i.postimg.cc/c4kBzpT1/white-net-top3.webp"
+    ],
+    "brand": "EtherealEdge"
+  },
+  {
+    "name": "Ivory Snowflake Sweater",
+    "description": "Stay cozy and stylish with this ivory snowflake sweater. Knitted from soft wool, it offers warmth and comfort during the colder months. Featuring a classic design, this sweater is a timeless addition to your winter wardrobe. Material: Wool. Care: Hand wash cold, reshape and dry flat.",
+    "price": 64.99,
+    "colors": ["White"],
+    "sizes": ["XS", "S", "M", "L"],
+    "images": [
+
+      "https://i.postimg.cc/y8JyCLrm/white-sweater1.webp",
+"https://i.postimg.cc/rpxGKKTz/white-sweater2.webp",
+"https://i.postimg.cc/GmZJLvZZ/white-sweater3.webp"
+    ],
+    "brand": "WinterWhispers"
+  },
+  {
+    "name": "Beige Frost Winter Jacket",
+    "description": "Brave the elements in style with this beige frost winter jacket. Made from a durable nylon blend fabric, it offers both warmth and protection. Featuring a versatile design, this jacket is ideal for outdoor adventures or everyday wear. Material: Nylon blend. Care: Machine wash cold, tumble dry low.",
+    "price": 199.99,
+    "colors": ["Beige"],
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "images": [
+
+      "https://i.postimg.cc/Rhrjw368/beige-winter-jacket1.webp",
+      "https://i.postimg.cc/X7kTyYVH/beige-winter-jacket2.webp"
+
+    ],
+    "brand": "FrostGuard"
+  }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

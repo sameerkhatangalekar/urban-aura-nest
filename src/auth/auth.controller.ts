@@ -8,9 +8,12 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthDto, CreateUserDto } from './dto';
-import { GetCurrentUser, Public } from 'src/common/decorators';
+import { GetCurrentUser, Public, Roles } from 'src/common/decorators';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @Controller('auth')
+@ApiTags('Authentication')
+@ApiBearerAuth()
 export class AuthController {
   constructor(private authService: AuthService) {}
 
@@ -30,7 +33,8 @@ export class AuthController {
 
   @Get('test')
   @HttpCode(HttpStatus.OK)
-  testAPi(@GetCurrentUser() userId: string) {
-    return userId;
+  @Roles(['ADMIN'])
+  testAPi(@GetCurrentUser() user: string) {
+    return user;
   }
 }

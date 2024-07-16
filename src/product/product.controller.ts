@@ -1,36 +1,73 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ProductService } from './product.service';
-import { CreateProductDto } from './dto';
+import { CreateProductDto, RateProductDto } from './dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Roles } from 'src/common/decorators';
 
+@ApiTags('Product')
+@ApiBearerAuth()
 @Controller('products')
 export class ProductController {
+  constructor(private productService: ProductService) {}
 
-    constructor(private productService: ProductService) { }
+  @Post()
+  @Roles(['ADMIN'])
+  @HttpCode(HttpStatus.CREATED)
+  async createProduct(@Body() createProductDto: CreateProductDto) {
+    console.log(createProductDto);
+    const product = await this.productService.createProduct(createProductDto);
 
+    return product;
+  }
 
-    @Post()
-    @HttpCode(HttpStatus.CREATED)
-    async createProduct(@Body() createProductDto: CreateProductDto) {
+  @Post('bulk')
+  @Roles(['ADMIN'])
+  @HttpCode(HttpStatus.CREATED)
+  async createBulkProduct(@Body() createProductDto: CreateProductDto[]) {
+    const product =
+      await this.productService.createBulkProduct(createProductDto);
 
-        const product = await this.productService.createProduct(createProductDto);
+    return product;
+  }
 
-        return product;
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  async getAllProducts() {
+    const products = await this.productService.getAllProducts();
 
-    }
+    return products;
+  }
 
-    @Get()
-    @HttpCode(HttpStatus.OK)
-    async getAllProducts() {
-        const products = await this.productService.getAllProducts();
+  @Get(':id')
+  @HttpCode(HttpStatus.OK)
+  async getProductById(@Param('id') productId: string) {
+    const product = await this.productService.getProductById(productId);
 
-        return products;
-    }
+    return product;
+  }
 
-    @Get()
-    @HttpCode(HttpStatus.OK)
-    async getProductById(@Param('id') productId: string) {
-        const product = await this.productService.getProductById(productId);
+  @Delete(':id')
+  @HttpCode(HttpStatus.OK)
+  async deleteProductById(@Param('id') productId: string) {
+    const product = await this.productService.deleteProductById(productId);
 
-        return product;
-    }
+    return product;
+  }
+
+  @Put('rating')
+  @HttpCode(HttpStatus.OK)
+  async rateProduct(rateProduct: RateProductDto) {
+    const product = await this.productService.rateProduct(rateProduct);
+    return product;
+  }
 }
