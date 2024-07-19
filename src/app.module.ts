@@ -3,11 +3,14 @@ import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { AccessTokenGaurd } from './common/guards';
 import { RolesGaurd } from './common/guards/roles.gaurd';
 import { ProductModule } from './product/product.module';
+import { CartModule } from './cart/cart.module';
+import { OrderModule } from './order/order.module';
+import { StripeModule } from './stripe/stripe.module';
 
 @Module({
   imports: [
@@ -16,6 +19,9 @@ import { ProductModule } from './product/product.module';
     PrismaModule,
     ConfigModule.forRoot({ isGlobal: true }),
     ProductModule,
+    CartModule,
+    OrderModule,
+    StripeModule.forRoot(new ConfigService().get('STRIPE_SECRET'), { apiVersion: '2024-06-20' }),
   ],
   providers: [
     {
