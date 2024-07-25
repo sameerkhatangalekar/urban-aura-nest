@@ -12,30 +12,30 @@ export class CartController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  getCart(@GetCurrentUser('sub') userId: string) {
-    return this.cartService.getCartItems(userId);
+  async getCart(@GetCurrentUser('sub') userId: string) {
+    return await this.cartService.getCartItems(userId);
   }
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  addToCart(@Body() createCartItemDto: CreateCartItemDto, @GetCurrentUser('sub') userId: string) {
-    return this.cartService.addToCart(createCartItemDto, userId);
+  async addToCart(@Body() createCartItemDto: CreateCartItemDto, @GetCurrentUser('sub') userId: string) {
+    return await this.cartService.addToCart(createCartItemDto, userId);
   }
 
   @Put('increment')
   @HttpCode(HttpStatus.ACCEPTED)
-  incrementCartItemQuantity(@Body() updateCartItemQuantityDto: UpdateCartItemQuantityDto) {
-    return this.cartService.incrementCartItemQuantity(updateCartItemQuantityDto);
+  async incrementCartItemQuantity(@Body() updateCartItemQuantityDto: UpdateCartItemQuantityDto) {
+    return await this.cartService.incrementCartItemQuantity(updateCartItemQuantityDto);
   }
 
   @Put('decrement')
   @HttpCode(HttpStatus.ACCEPTED)
-  decrementCartItemQuantity(@Body() updateCartItemQuantityDto: UpdateCartItemQuantityDto) {
-    return this.cartService.decrementCartItemQuantity(updateCartItemQuantityDto);
+  async decrementCartItemQuantity(@Body() updateCartItemQuantityDto: UpdateCartItemQuantityDto) {
+    return await this.cartService.decrementCartItemQuantity(updateCartItemQuantityDto);
   }
 
   @Delete(':id')
-  deleteCartItem(@Param('id') cartItemId: string, @GetCurrentUser('sub') userId: string) {
-    return this.cartService.deleteCartItem(cartItemId, userId);
+  async deleteCartItem(@Param('id') cartItemId: string, @GetCurrentUser('sub') userId: string) {
+    return await this.cartService.deleteCartItem(cartItemId, userId);
   }
 }

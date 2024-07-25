@@ -2,8 +2,6 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Inject, Param, Put } from 
 import { OrderService } from './order.service';
 import { UpdateOrderStatusDto } from './dto';
 import { GetCurrentUser, Public, Roles } from 'src/common/decorators';
-import { STRIPE_CLIENT } from 'src/common/constants';
-import Stripe from 'stripe';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @Controller('order')
@@ -14,36 +12,39 @@ export class OrderController {
 
   @Put('/admin/:id')
   @HttpCode(HttpStatus.ACCEPTED)
-  updateOrderStatus(@Param('id') orderId: string, @Body() updateOrderStatusDto: UpdateOrderStatusDto): string {
+  async updateOrderStatus(
+    @Param('id') orderId: string,
+    @Body() updateOrderStatusDto: UpdateOrderStatusDto,
+  ): Promise<string> {
     console.log('updateOrderStatus called');
-    const order = this.orderService.updateOrderStatus(updateOrderStatusDto, orderId);
+    const order = await this.orderService.updateOrderStatus(updateOrderStatusDto, orderId);
 
     return 'Order status updated';
   }
 
   @Put('/cancel/:id')
   @HttpCode(HttpStatus.ACCEPTED)
-  cancelOrder(@Param('id') orderId: string): string {
+  async cancelOrder(@Param('id') orderId: string): Promise<string> {
     console.log('cancelOrder called');
-    const order = this.orderService.cancelOrder(orderId);
+    const order = await this.orderService.cancelOrder(orderId);
     // TODO trigger repayment through stripe
     return 'Order cancelled';
   }
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  getOrderById(@Param('id') orderId: string, @GetCurrentUser('sub') userId: string) {
+  async getOrderById(@Param('id') orderId: string, @GetCurrentUser('sub') userId: string) {
     console.log('getOrderById called');
-    const order = this.orderService.getOrderById(orderId, userId);
+    const order = await this.orderService.getOrderById(orderId, userId);
 
     return order;
   }
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  getOrdersByUser(@GetCurrentUser('sub') userId: string) {
+  async getOrdersByUser(@GetCurrentUser('sub') userId: string) {
     console.log('getOrdersByUser called');
-    const orders = this.orderService.getOrdersByUser(userId);
+    const orders = await this.orderService.getOrdersByUser(userId);
 
     return orders;
   }
@@ -51,9 +52,9 @@ export class OrderController {
   @Get('/admin/all')
   @Roles(['ADMIN'])
   @HttpCode(HttpStatus.OK)
-  getAllOrders() {
+  async getAllOrders() {
     console.log('getAllOrders called');
-    const orders = this.orderService.getAllOrders();
+    const orders = await this.orderService.getAllOrders();
 
     return orders;
   }

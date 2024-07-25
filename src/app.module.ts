@@ -11,6 +11,8 @@ import { ProductModule } from './product/product.module';
 import { CartModule } from './cart/cart.module';
 import { OrderModule } from './order/order.module';
 import { StripeModule } from './stripe/stripe.module';
+import { WebhookModule } from './webhook/webhook.module';
+import { CheckoutModule } from './checkout/checkout.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { StripeModule } from './stripe/stripe.module';
     CartModule,
     OrderModule,
     StripeModule.forRoot(new ConfigService().get('STRIPE_SECRET'), { apiVersion: '2024-06-20' }),
+    WebhookModule,
+    CheckoutModule,
   ],
   providers: [
     {

@@ -34,12 +34,36 @@ model User {
 
   orders Order[]
 
+  Address Address[]
+
   @@map("users")
 }
 
 enum Role {
   USER
   ADMIN
+}
+
+model Address {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  name String
+
+  city String
+
+  state String
+
+  country String
+
+  contact String
+
+  line_one String
+
+  postal_code String
+
+  userId String @db.ObjectId
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Product {
@@ -138,7 +162,7 @@ model Order {
 
   totalAmount Float
 
-  shipping Json
+  shipping Shipping
 
   paymentId String
 
@@ -178,4 +202,20 @@ type OrderItem {
   size Size
 
   images String[]
+}
+
+type Shipping {
+  name String
+
+  city String
+
+  state String
+
+  country String
+
+  contact String
+
+  line_one String
+
+  postal_code String
 }

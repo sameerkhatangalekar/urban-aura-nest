@@ -3,12 +3,13 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateCartItemDto, UpdateCartItemQuantityDto } from './dto';
 
 import { CartItem } from '@prisma/client';
+import { CartItemsReturnType } from 'src/common/types';
 
 @Injectable()
 export class CartService {
   constructor(private prisma: PrismaService) {}
 
-  async getCartItems(userId: string): Promise<{ cart: CartItem[]; cartTotal: number }> {
+  async getCartItems(userId: string): Promise<CartItemsReturnType> {
     const cart = await this.prisma.cartItem.findMany({
       where: {
         userId: userId,
@@ -28,7 +29,6 @@ export class CartService {
         },
       },
     });
-
     const cartTotal = cart.reduce((prev, curr) => {
       return prev + curr.quantity * curr.product.price;
     }, 0);
