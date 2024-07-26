@@ -4,7 +4,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { AccessTokenGaurd } from './common/guards';
 import { RolesGaurd } from './common/guards/roles.gaurd';
 import { ProductModule } from './product/product.module';
@@ -13,6 +13,7 @@ import { OrderModule } from './order/order.module';
 import { StripeModule } from './stripe/stripe.module';
 import { WebhookModule } from './webhook/webhook.module';
 import { CheckoutModule } from './checkout/checkout.module';
+import { LoggerInterceptor } from './interceptors/logger.interceptor';
 
 @Module({
   imports: [
@@ -35,6 +36,10 @@ import { CheckoutModule } from './checkout/checkout.module';
     {
       provide: APP_GUARD,
       useClass: RolesGaurd,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggerInterceptor,
     },
   ],
   exports: [ConfigModule],

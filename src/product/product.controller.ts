@@ -1,14 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Param,
-  Post,
-  Put,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto, RateProductDto } from './dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -34,8 +24,7 @@ export class ProductController {
   @Roles(['ADMIN'])
   @HttpCode(HttpStatus.CREATED)
   async createBulkProduct(@Body() createProductDto: CreateProductDto[]) {
-    const product =
-      await this.productService.createBulkProduct(createProductDto);
+    const product = await this.productService.createBulkProduct(createProductDto);
 
     return product;
   }
@@ -43,6 +32,7 @@ export class ProductController {
   @Get()
   @HttpCode(HttpStatus.OK)
   async getAllProducts() {
+    console.log('Fetching products');
     const products = await this.productService.getAllProducts();
 
     return products;
