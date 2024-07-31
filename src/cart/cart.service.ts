@@ -53,9 +53,7 @@ export class CartService {
   async incrementCartItemQuantity(updateCartItemQuantityDto: UpdateCartItemQuantityDto): Promise<string> {
     const cartItem = await this.prisma.cartItem.update({
       data: {
-        quantity: {
-          increment: updateCartItemQuantityDto.quantity,
-        },
+        quantity: updateCartItemQuantityDto.quantity,
       },
       where: {
         id: updateCartItemQuantityDto.id,
@@ -83,9 +81,7 @@ export class CartService {
     } else {
       await this.prisma.cartItem.update({
         data: {
-          quantity: {
-            decrement: updateCartItemQuantityDto.quantity,
-          },
+          quantity: updateCartItemQuantityDto.quantity,
         },
         where: {
           id: updateCartItemQuantityDto.id,
