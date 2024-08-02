@@ -14,6 +14,7 @@ import { StripeModule } from './stripe/stripe.module';
 import { WebhookModule } from './webhook/webhook.module';
 import { CheckoutModule } from './checkout/checkout.module';
 import { LoggerInterceptor } from './interceptors/logger.interceptor';
+import { AlgoliaModule } from './algolia/algolia.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { LoggerInterceptor } from './interceptors/logger.interceptor';
     StripeModule.forRoot(new ConfigService().get('STRIPE_SECRET'), { apiVersion: '2024-06-20' }),
     WebhookModule,
     CheckoutModule,
+    AlgoliaModule,
   ],
   providers: [
     {

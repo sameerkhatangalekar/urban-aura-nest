@@ -1,15 +1,20 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
 import { CreateProductDto, RateProductDto } from './dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import algoliasearch, { SearchClient } from 'algoliasearch';
 
 @Injectable()
 export class ProductService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    @Inject('ALGOLIA_CLIENT') private readonly algolia: SearchClient,
+  ) {}
 
   async createProduct(createProductDto: CreateProductDto) {
     console.log(createProductDto);
     try {
+      const index = this.algolia.initIndex('products');
       const product = await this.prisma.product.create({
         data: {
           name: createProductDto.name,
@@ -21,12 +26,16 @@ export class ProductService {
           sizes: createProductDto.sizes,
         },
       });
+
+      const { images, ...doc } = product;
+
+      index.saveObject({ ...doc });
+
       return product;
     } catch (error) {
       console.log(error);
       if (error instanceof PrismaClientKnownRequestError) {
-        if (error.code === 'P2002')
-          throw new ForbiddenException('Product with same name already exists');
+        if (error.code === 'P2002') throw new ForbiddenException('Product with same name already exists');
       }
       throw error;
     }
@@ -42,8 +51,7 @@ export class ProductService {
       return products;
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
-        if (error.code === 'P2002')
-          throw new ForbiddenException('Produch with name already exists');
+        if (error.code === 'P2002') throw new ForbiddenException('Produch with name already exists');
       }
     }
   }
