@@ -4,7 +4,7 @@ import { ALGOLIA_CLIENT } from 'src/common/constants';
 
 @Module({})
 export class AlgoliaModule {
-  static forRoot(apiKey: string, appId: string): DynamicModule {
+  static forRoot(appId: string, apiKey: string): DynamicModule {
     const algoliaClient = algoliasearch(appId, apiKey);
 
     const algoliaProvider: Provider = {

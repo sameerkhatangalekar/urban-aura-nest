@@ -28,7 +28,7 @@ import { AlgoliaModule } from './algolia/algolia.module';
     StripeModule.forRoot(new ConfigService().get('STRIPE_SECRET'), { apiVersion: '2024-06-20' }),
     WebhookModule,
     CheckoutModule,
-    AlgoliaModule,
+    AlgoliaModule.forRoot(new ConfigService().get('ALGOLIA_APPID'), new ConfigService().get('ALGOLIA_API_KEY')),
   ],
   providers: [
     {

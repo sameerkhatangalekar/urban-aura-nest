@@ -14,7 +14,6 @@ export class ProductController {
   @Roles(['ADMIN'])
   @HttpCode(HttpStatus.CREATED)
   async createProduct(@Body() createProductDto: CreateProductDto) {
-    console.log(createProductDto);
     const product = await this.productService.createProduct(createProductDto);
 
     return product;
@@ -32,7 +31,6 @@ export class ProductController {
   @Get()
   @HttpCode(HttpStatus.OK)
   async getAllProducts() {
-    console.log('Fetching products');
     const products = await this.productService.getAllProducts();
 
     return products;

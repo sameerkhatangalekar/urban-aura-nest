@@ -2,17 +2,17 @@ import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
 import { CreateProductDto, RateProductDto } from './dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import algoliasearch, { SearchClient } from 'algoliasearch';
+import { SearchClient } from 'algoliasearch';
+import { ALGOLIA_CLIENT } from 'src/common/constants';
 
 @Injectable()
 export class ProductService {
   constructor(
     private prisma: PrismaService,
-    @Inject('ALGOLIA_CLIENT') private readonly algolia: SearchClient,
+    @Inject(ALGOLIA_CLIENT) private readonly algolia: SearchClient,
   ) {}
 
   async createProduct(createProductDto: CreateProductDto) {
-    console.log(createProductDto);
     try {
       const index = this.algolia.initIndex('products');
       const product = await this.prisma.product.create({
@@ -27,9 +27,10 @@ export class ProductService {
         },
       });
 
-      const { images, ...doc } = product;
-
-      index.saveObject({ ...doc });
+      await index.saveObject({
+        objectID: product.id,
+        ...product,
+      });
 
       return product;
     } catch (error) {
@@ -43,11 +44,8 @@ export class ProductService {
 
   async createBulkProduct(createProductDtos: CreateProductDto[]) {
     try {
-      const products = await this.prisma.$transaction([
-        this.prisma.product.createMany({
-          data: createProductDtos,
-        }),
-      ]);
+      const products = await this.prisma.$transaction([]);
+
       return products;
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
