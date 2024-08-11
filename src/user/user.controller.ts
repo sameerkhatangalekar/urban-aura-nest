@@ -4,6 +4,7 @@ import { GetCurrentUser } from 'src/common/decorators';
 import { CurrentUserDto } from 'src/common/dto';
 import { CreateAddressDto, UpdateAddressDto } from './dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { SuccessType } from 'src/common/types';
 
 @ApiBearerAuth()
 @ApiTags('User')
@@ -13,10 +14,15 @@ export class UserController {
 
   @Post('address')
   @HttpCode(HttpStatus.CREATED)
-  async createAddress(@GetCurrentUser() user: CurrentUserDto, @Body() createAddressDto: CreateAddressDto) {
-    const address = await this.userService.createAddress(user, createAddressDto);
+  async createAddress(
+    @GetCurrentUser() user: CurrentUserDto,
+    @Body() createAddressDto: CreateAddressDto,
+  ): Promise<SuccessType> {
+    await this.userService.createAddress(user, createAddressDto);
 
-    return address;
+    return {
+      message: 'Address created',
+    };
   }
 
   @Get('address')
@@ -31,13 +37,19 @@ export class UserController {
     @GetCurrentUser() user: CurrentUserDto,
     @Param('addressId') addressId: string,
     @Body() updateAddressDto: UpdateAddressDto,
-  ) {
-    return await this.userService.updateAddress(addressId, updateAddressDto);
+  ): Promise<SuccessType> {
+    await this.userService.updateAddress(addressId, updateAddressDto);
+    return {
+      message: 'Address updated',
+    };
   }
 
   @Delete('address/:addressId')
   @HttpCode(HttpStatus.ACCEPTED)
-  async deleteAddressById(@Param('addressId') addressId: string) {
-    return await this.userService.deleteAddressById(addressId);
+  async deleteAddressById(@Param('addressId') addressId: string): Promise<SuccessType> {
+    const message = await this.userService.deleteAddressById(addressId);
+    return {
+      message,
+    };
   }
 }

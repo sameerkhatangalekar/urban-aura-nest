@@ -3,6 +3,8 @@ import { OrderService } from './order.service';
 import { UpdateOrderStatusDto } from './dto';
 import { GetCurrentUser, Public, Roles } from 'src/common/decorators';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Order } from '@prisma/client';
+import { SuccessType } from 'src/common/types';
 
 @Controller('order')
 @ApiTags('Orders')
@@ -16,25 +18,22 @@ export class OrderController {
     @Param('id') orderId: string,
     @Body() updateOrderStatusDto: UpdateOrderStatusDto,
   ): Promise<string> {
-    console.log('updateOrderStatus called');
     const order = await this.orderService.updateOrderStatus(updateOrderStatusDto, orderId);
-
     return 'Order status updated';
   }
 
   @Put('/cancel/:id')
   @HttpCode(HttpStatus.ACCEPTED)
-  async cancelOrder(@Param('id') orderId: string): Promise<string> {
+  async cancelOrder(@Param('id') orderId: string): Promise<SuccessType> {
     console.log('cancelOrder called');
     const order = await this.orderService.cancelOrder(orderId);
     // TODO trigger repayment through stripe
-    return 'Order cancelled';
+    return { message: 'Order cancelled' };
   }
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
   async getOrderById(@Param('id') orderId: string, @GetCurrentUser('sub') userId: string) {
-    console.log('getOrderById called');
     const order = await this.orderService.getOrderById(orderId, userId);
 
     return order;
@@ -43,7 +42,6 @@ export class OrderController {
   @Get()
   @HttpCode(HttpStatus.OK)
   async getOrdersByUser(@GetCurrentUser('sub') userId: string) {
-    console.log('getOrdersByUser called');
     const orders = await this.orderService.getOrdersByUser(userId);
 
     return orders;
@@ -53,7 +51,6 @@ export class OrderController {
   @Roles(['ADMIN'])
   @HttpCode(HttpStatus.OK)
   async getAllOrders() {
-    console.log('getAllOrders called');
     const orders = await this.orderService.getAllOrders();
 
     return orders;

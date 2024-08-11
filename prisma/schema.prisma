@@ -156,6 +156,8 @@ model CartItem {
 model Order {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
+  orderId String
+
   orderItems OrderItem[]
 
   status Status @default(PLACED)

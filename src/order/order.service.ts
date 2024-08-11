@@ -4,6 +4,7 @@ import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
 import { Order, OrderItem, Status } from '@prisma/client';
 import { STRIPE_CLIENT } from 'src/common/constants';
 import Stripe from 'stripe';
+import { v4 } from 'uuid';
 import { CartService } from 'src/cart/cart.service';
 
 @Injectable()
@@ -80,6 +81,20 @@ export class OrderService {
   async createOrder(event: Stripe.PaymentIntentSucceededEvent.Data): Promise<Order> {
     const userId = event.object.metadata['userId'];
     const cartObj = await this.cartService.getCartItems(userId);
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    const day = currentDate.getDate();
+    const hour = currentDate.getHours();
+    const minute = currentDate.getMinutes();
+    const second = currentDate.getSeconds();
+    const milliseconds = currentDate.getMilliseconds();
+    const uniqueId = v4().substring(0, 8);
+    const numericUuid = uniqueId
+      .split('-')
+      .map((hex) => parseInt(hex, 16))
+      .join('');
+    const orderId = `${year}${month}${day}-${hour}${minute}${second}-${milliseconds}-${numericUuid}`;
 
     const orderItems: OrderItem[] = cartObj.cart.map((item) => {
       return {
@@ -97,6 +112,7 @@ export class OrderService {
 
     const order = await this.prisma.order.create({
       data: {
+        orderId: orderId,
         paymentId: event.object.id,
         totalAmount: event.object.amount / 100,
         orderItems: orderItems,

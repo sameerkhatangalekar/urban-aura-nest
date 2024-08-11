@@ -20,8 +20,9 @@ export class CheckoutService {
     }
 
     const intent = await this.stripe.paymentIntents.create({
+      description: 'Ecommerce',
       amount: cartObj.cartTotal * 100,
-      currency: 'inr',
+      currency: 'usd',
       automatic_payment_methods: {
         enabled: true,
       },

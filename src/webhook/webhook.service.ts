@@ -21,19 +21,18 @@ export class WebhookService {
     switch (event.type) {
       case 'payment_intent.created':
         console.log('created');
-        console.log(event.data.object);
         break;
       case 'payment_intent.succeeded':
         console.log('succeeded');
-        console.log(event.data.object);
+
+        this.handlePaymentSuccess(event.data);
         break;
       case 'payment_intent.canceled':
         console.log('cancelled');
-        console.log(event.data.object);
         break;
 
       default:
-        console.log('non ');
+        console.log(`non ${event.type} `);
         break;
     }
   }
