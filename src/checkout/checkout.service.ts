@@ -4,15 +4,18 @@ import { STRIPE_CLIENT } from 'src/common/constants';
 import Stripe from 'stripe';
 import { CheckoutDto } from './dto';
 import { CurrentUserDto } from 'src/common/dto';
+import { StripTransactionKeys } from 'src/common/types';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class CheckoutService {
   constructor(
     private readonly cartService: CartService,
     @Inject(STRIPE_CLIENT) private readonly stripe: Stripe,
+    private readonly config: ConfigService,
   ) {}
 
-  async checkout(checkoutDto: CheckoutDto, user: CurrentUserDto): Promise<string> {
+  async checkout(checkoutDto: CheckoutDto, user: CurrentUserDto): Promise<StripTransactionKeys> {
     const cartObj = await this.cartService.getCartItems(user.sub);
 
     if (cartObj.cart.length <= 0) {
@@ -43,6 +46,9 @@ export class CheckoutService {
       receipt_email: user.email,
     });
 
-    return intent.client_secret;
+    return {
+      clientSecret: intent.client_secret,
+      publishableKey: this.config.get('STRIPE_PUBLISHABLE_KEY'),
+    };
   }
 }

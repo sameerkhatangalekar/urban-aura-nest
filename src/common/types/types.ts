@@ -18,3 +18,8 @@ export type CartItemsReturnType = { cart: CartItemWithProduct[]; cartTotal: numb
 export type SuccessType = {
   message: string;
 };
+
+export type StripTransactionKeys = {
+  clientSecret: string;
+  publishableKey: string;
+};
