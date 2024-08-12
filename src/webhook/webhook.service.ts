@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CartService } from 'src/cart/cart.service';
 import { STRIPE_CLIENT } from 'src/common/constants';
@@ -15,31 +15,36 @@ export class WebhookService {
     private orderService: OrderService,
   ) {}
 
-  handleWebhookNotification(signature: string, payload: string) {
-    const event = this.stripe.webhooks.constructEvent(payload, signature, this.config.get('END_POINT_SECRET'));
+  handleWebhookNotification(signature: string, payload: any) {
+    try {
+      const event = this.stripe.webhooks.constructEvent(payload, signature, this.config.get('END_POINT_SECRET'));
 
-    switch (event.type) {
-      case 'payment_intent.created':
-        console.log('created');
-        break;
-      case 'payment_intent.succeeded':
-        console.log('succeeded');
+      switch (event.type) {
+        case 'payment_intent.created':
+          console.log('created');
+          break;
+        case 'payment_intent.succeeded':
+          console.log('succeeded');
 
-        this.handlePaymentSuccess(event.data);
-        break;
-      case 'payment_intent.canceled':
-        console.log('cancelled');
-        break;
+          this.handlePaymentSuccess(event.data);
+          break;
+        case 'payment_intent.canceled':
+          console.log('cancelled');
+          break;
 
-      case 'charge.refunded':
-        console.log('Refunded');
+        case 'charge.refunded':
+          console.log('Refunded');
 
-        this.handleRefund(event.data);
-        break;
+          this.handleRefund(event.data);
+          break;
 
-      default:
-        console.log(`non ${event.type} `);
-        break;
+        default:
+          console.log(`non ${event.type} `);
+          break;
+      }
+    } catch (error) {
+      console.log(error, 'handleWebhook');
+      throw new HttpException(`Webhook Error: ${error.message}`, HttpStatus.BAD_REQUEST);
     }
   }
 

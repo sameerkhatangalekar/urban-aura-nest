@@ -12,7 +12,7 @@ export class WebhookController {
   @HttpCode(HttpStatus.OK)
   @Public()
   async handleWebhookNotification(@Req() request: RawBodyRequest<Request>) {
-    this.webhookService.handleWebhookNotification(request.headers['stripe-signature'], request.rawBody.toString());
+    this.webhookService.handleWebhookNotification(request.headers['stripe-signature'], request.rawBody);
     return;
   }
 }
