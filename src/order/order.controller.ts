@@ -5,21 +5,28 @@ import { GetCurrentUser, Public, Roles } from 'src/common/decorators';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Order } from '@prisma/client';
 import { SuccessType } from 'src/common/types';
+import { STRIPE_CLIENT } from 'src/common/constants';
+import Stripe from 'stripe';
 
 @Controller('order')
 @ApiTags('Orders')
 @ApiBearerAuth()
 export class OrderController {
-  constructor(private orderService: OrderService) {}
+  constructor(
+    private readonly orderService: OrderService,
+    @Inject(STRIPE_CLIENT) private readonly stripe: Stripe,
+  ) {}
 
   @Put('/admin/:id')
   @HttpCode(HttpStatus.ACCEPTED)
   async updateOrderStatus(
     @Param('id') orderId: string,
     @Body() updateOrderStatusDto: UpdateOrderStatusDto,
-  ): Promise<string> {
+  ): Promise<SuccessType> {
     const order = await this.orderService.updateOrderStatus(updateOrderStatusDto, orderId);
-    return 'Order status updated';
+    return {
+      message: 'Order status updated',
+    };
   }
 
   @Put('/cancel/:id')
@@ -27,7 +34,15 @@ export class OrderController {
   async cancelOrder(@Param('id') orderId: string): Promise<SuccessType> {
     console.log('cancelOrder called');
     const order = await this.orderService.cancelOrder(orderId);
-    // TODO trigger repayment through stripe
+
+    const refund = await this.stripe.refunds.create({
+      payment_intent: order.paymentId,
+      metadata: {
+        orderId: order.orderId,
+      },
+      reason: 'requested_by_customer',
+    });
+
     return { message: 'Order cancelled' };
   }
 

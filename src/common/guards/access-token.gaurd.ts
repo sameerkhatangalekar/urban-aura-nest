@@ -1,18 +1,19 @@
-import { ExecutionContext, Injectable } from '@nestjs/common';
+import { CanActivate, ExecutionContext, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { AuthGuard } from '@nestjs/passport';
-import { Observable } from 'rxjs';
+import { FIREBASE_CLIENT } from '../constants';
+import * as admin from 'firebase-admin';
+import { Request } from 'express';
+import { PrismaService } from 'src/prisma/prisma.service';
 
-/*
- * This class searches for strategy named 'jwt' at run time
- */
 @Injectable()
-export class AccessTokenGaurd extends AuthGuard('jwt') {
-  constructor(private reflector: Reflector) {
-    super();
-  }
+export class AccessTokenGaurd implements CanActivate {
+  constructor(
+    private reflector: Reflector,
+    @Inject(FIREBASE_CLIENT) private readonly firebaseKey: admin.app.App,
+    private readonly prisma: PrismaService,
+  ) {}
 
-  canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const isPublic = this.reflector.getAllAndOverride('isPublic', [
       context.getHandler(), // checks if decorator is added to function
       context.getClass(), // checks if decorator is added to class
@@ -20,6 +21,32 @@ export class AccessTokenGaurd extends AuthGuard('jwt') {
 
     if (isPublic) return true;
 
-    return super.canActivate(context);
+    const request = context.switchToHttp().getRequest();
+    const token = this.extractTokenFromHeader(request);
+
+    try {
+      const payload = await this.firebaseKey.auth().verifyIdToken(token);
+      if (payload.firebase.sign_in_provider === 'custom') {
+        request['user'] = payload;
+      } else {
+        const user = await this.prisma.user.findUnique({
+          where: {
+            uid: payload.uid,
+          },
+        });
+
+        payload.uid = user.id;
+        payload.sub = user.id;
+        payload.user_id = user.id;
+        request['user'] = payload;
+      }
+    } catch (error) {
+      throw new UnauthorizedException();
+    }
+    return true;
+  }
+  private extractTokenFromHeader(request: Request): string | undefined {
+    const [type, token] = request.headers.authorization?.split(' ') ?? [];
+    return type === 'Bearer' ? token : undefined;
   }
 }

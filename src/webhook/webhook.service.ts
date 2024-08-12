@@ -31,14 +31,42 @@ export class WebhookService {
         console.log('cancelled');
         break;
 
+      case 'charge.refunded':
+        console.log('Refunded');
+
+        this.handleRefund(event.data);
+        break;
+
       default:
         console.log(`non ${event.type} `);
         break;
     }
   }
 
-  async handlePaymentSuccess(event: Stripe.PaymentIntentSucceededEvent.Data) {
+  private async handlePaymentSuccess(event: Stripe.PaymentIntentSucceededEvent.Data) {
     const order = await this.orderService.createOrder(event);
-    //TODO delete cart
+    await this.deleteCart(order.userId);
+  }
+  private async handleRefund(event: Stripe.ChargeRefundedEvent.Data) {
+    const paymentId = event.object.payment_intent;
+    await this.prisma.order.update({
+      where: {
+        paymentId: paymentId.toString(),
+      },
+      data: {
+        refund: {
+          status: event.object.status,
+          receipt: event.object.receipt_url,
+        },
+      },
+    });
+  }
+
+  private async deleteCart(userId: string) {
+    await this.prisma.cartItem.deleteMany({
+      where: {
+        userId: userId,
+      },
+    });
   }
 }

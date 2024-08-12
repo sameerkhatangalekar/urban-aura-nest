@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotAcceptableException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
 import { Order, OrderItem, Status } from '@prisma/client';
@@ -29,6 +29,14 @@ export class OrderService {
   }
 
   async cancelOrder(orderId: string): Promise<Order> {
+    const canCancel = await this.prisma.order.findUnique({
+      where: {
+        id: orderId,
+      },
+    });
+    if (canCancel.status !== Status.PLACED)
+      throw new NotAcceptableException(`Order is already ${canCancel.status} and cannot be cancelled`);
+
     const order = await this.prisma.order.update({
       data: {
         status: Status.CANCELLED,

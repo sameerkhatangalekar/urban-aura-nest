@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
@@ -15,6 +14,7 @@ import { WebhookModule } from './webhook/webhook.module';
 import { CheckoutModule } from './checkout/checkout.module';
 import { LoggerInterceptor } from './interceptors/logger.interceptor';
 import { AlgoliaModule } from './algolia/algolia.module';
+import { FirebaseModule } from './firebase/firebase.module';
 
 @Module({
   imports: [
@@ -29,6 +29,7 @@ import { AlgoliaModule } from './algolia/algolia.module';
     WebhookModule,
     CheckoutModule,
     AlgoliaModule.forRoot(new ConfigService().get('ALGOLIA_APPID'), new ConfigService().get('ALGOLIA_API_KEY')),
+    FirebaseModule.forRoot(),
   ],
   providers: [
     {
