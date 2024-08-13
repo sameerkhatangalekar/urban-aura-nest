@@ -2,35 +2,59 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# UrbanAura NestJS API
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+✨ **UrbanAura API** is the backend service for the UrbanAura luxury fashion eCommerce platform. This API handles secure authentication, payment processing, search functionality, and more. It's built with **NestJS** and follows clean architecture principles for scalability and maintainability.
 
-## Description
+## 🎨 Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **Secure Authentication**: Supports both **Google Sign-In** 🛡️ and traditional **Email/Password** 🔑 methods with **Firebase**.
+- **Seamless Payment Processing**: Integrated with **Stripe** 💳 for secure and reliable transactions.
+- **Advanced Search**: Powered by **Algolia** 🔍 for fast and accurate product search.
+- **Password Security**: Utilizes **Argon2** 🛠️ for password hashing.
+- **RESTful API Design**: Provides a robust and consistent interface for client applications.
+- **Scalable and Maintainable**: Built with **NestJS**, following **Clean Architecture** principles.
+- **Database Management**: Uses **Prisma** as an ORM with **MongoDB** for efficient data handling.
+
+## 🛠️ Technologies Used
+
+- **NestJS**: A progressive Node.js framework for building efficient, reliable, and scalable server-side applications.
+- **TypeScript**: A strongly typed programming language that builds on JavaScript, providing better tooling at any scale.
+- **Stripe**: Payment gateway integration for handling transactions.
+- **Algolia**: Search engine integration for fast and efficient search capabilities.
+- **Firebase Admin**: For managing Google Sign-In and other Firebase-related functionalities.
+- **Prisma**: ORM for managing MongoDb with a modern, type-safe query builder.
+- **Argon2**: Password hashing for secure authentication.
 
 ## Installation
 
 ```bash
 $ npm install
 ```
+## Set up environment variables 
+DATABASE_URL=your_database_url
+STRIPE_SECRET_KEY=your_stripe_secret_key
+END_POINT_SECRET=your_stripe_webhook_secret
+ALGOLIA_APPID=your_algolia_app_id
+ALGOLIA_API_KEY=your_algolia_api_key
+firebaseKey=your_firebase_service_account_key
+STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+
+
+## 🧩 Architecture
+
+This project follows Clean Architecture principles. The code is structured into several modules:
+
+Auth Module: Manages authentication and authorization.
+Checkout Module: Handles payment processing and related operations.
+Users Module: Manages user data and operations.
+Products Module: Handles product data and operations.
+Cart Module: Manages cart data and operations.
+Order Module: Manages order data and operations.
+
+
+## 🌐 API Documentation
+The API documentation is provided via Swagger and is available at http://localhost:4000/api when running the development server.
 
 ## Running the app
 
@@ -44,30 +68,7 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+## 📬 Contact
 
-## Test
+For any inquiries or feedback, feel free to reach out via sameerkhatangalekar@gmail.com.
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
